@@ -24,8 +24,8 @@ struct AppSettings: Codable, Equatable, Sendable {
     /// Last known organization ID (cached)
     var cachedOrganizationId: UUID?
 
-    /// Whether to show Opus usage in the popover
-    var isOpusUsageShown: Bool
+    /// Whether to show Sonnet usage in the popover
+    var isSonnetUsageShown: Bool
 
     static let `default` = AppSettings(
         refreshInterval: 60,
@@ -33,7 +33,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         notificationThresholds: .default,
         isFirstLaunch: true,
         cachedOrganizationId: nil,
-        isOpusUsageShown: false
+        isSonnetUsageShown: false
     )
 
     enum CodingKeys: String, CodingKey {
@@ -42,7 +42,7 @@ struct AppSettings: Codable, Equatable, Sendable {
         case notificationThresholds = "notification_thresholds"
         case isFirstLaunch = "is_first_launch"
         case cachedOrganizationId = "cached_organization_id"
-        case isOpusUsageShown = "show_opus_usage"
+        case isSonnetUsageShown = "show_sonnet_usage"
     }
 }
 

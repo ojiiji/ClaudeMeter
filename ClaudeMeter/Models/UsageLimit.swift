@@ -7,34 +7,29 @@
 
 import Foundation
 
-/// A single usage limit (session, weekly, or Opus)
+/// A single usage limit (session, weekly, or Sonnet)
 struct UsageLimit: Codable, Equatable, Sendable {
-    /// Tokens consumed in this limit period
-    let tokensUsed: Int
-
-    /// Maximum tokens allowed in this limit period
-    let tokensLimit: Int
+    /// Utilization percentage (0-100)
+    let utilization: Double
 
     /// ISO8601 timestamp when limit resets
     let resetAt: Date
 
     enum CodingKeys: String, CodingKey {
-        case tokensUsed = "tokens_used"
-        case tokensLimit = "tokens_limit"
+        case utilization
         case resetAt = "reset_at"
     }
 }
 
 extension UsageLimit {
-    /// Percentage used (0-100+)
+    /// Percentage used (0-100+) - alias for utilization
     var percentage: Double {
-        guard tokensLimit > 0 else { return 0 }
-        return (Double(tokensUsed) / Double(tokensLimit)) * 100
+        utilization
     }
 
     /// Status level based on percentage
     var status: UsageStatus {
-        switch percentage {
+        switch utilization {
         case 0..<50:
             return .safe
         case 50..<80:
@@ -53,11 +48,11 @@ extension UsageLimit {
 
     /// Check if limit has been exceeded
     var isExceeded: Bool {
-        percentage >= 100
+        utilization >= 100
     }
 
     /// Check if reset time has passed but usage hasn't reset
     var isResetting: Bool {
-        resetAt < Date() && tokensUsed > 0
+        resetAt < Date() && utilization > 0
     }
 }

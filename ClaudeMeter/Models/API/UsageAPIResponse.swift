@@ -11,12 +11,12 @@ import Foundation
 struct UsageAPIResponse: Codable {
     let fiveHour: UsageLimitResponse
     let sevenDay: UsageLimitResponse
-    let sevenDayOpus: UsageLimitResponse?
+    let sevenDaySonnet: UsageLimitResponse?
 
     enum CodingKeys: String, CodingKey {
         case fiveHour = "five_hour"
         case sevenDay = "seven_day"
-        case sevenDayOpus = "seven_day_opus"
+        case sevenDaySonnet = "seven_day_sonnet"
     }
 }
 
@@ -53,11 +53,6 @@ extension UsageAPIResponse {
         let iso8601Formatter = ISO8601DateFormatter()
         iso8601Formatter.formatOptions = [.withInternetDateTime, .withFractionalSeconds]
 
-        // Convert utilization percentage to tokens (use 100 as limit for direct percentage mapping)
-        // This allows the domain model's percentage calculation to work correctly
-        let sessionTokensUsed = Int(fiveHour.utilization)
-        let weeklyTokensUsed = Int(sevenDay.utilization)
-
         // Parse reset dates (must be present and valid)
         let sessionResetDate: Date
         let weeklyResetDate: Date
@@ -74,38 +69,34 @@ extension UsageAPIResponse {
         }
         weeklyResetDate = parsedDate
 
-        // Handle optional opus usage
-        let opusLimit: UsageLimit? = sevenDayOpus.flatMap { opus in
-            let opusTokensUsed = Int(opus.utilization)
-            let opusResetDate: Date
+        // Handle optional sonnet usage
+        let sonnetLimit: UsageLimit? = sevenDaySonnet.flatMap { sonnet in
+            let sonnetResetDate: Date
 
-            if let opusResetString = opus.resetsAt,
-               let parsedDate = iso8601Formatter.date(from: opusResetString) {
-                opusResetDate = parsedDate
+            if let sonnetResetString = sonnet.resetsAt,
+               let parsedDate = iso8601Formatter.date(from: sonnetResetString) {
+                sonnetResetDate = parsedDate
             } else {
                 // Default to 7 days in the future if no reset date
-                opusResetDate = Date().addingTimeInterval(7 * 24 * 3600)
+                sonnetResetDate = Date().addingTimeInterval(7 * 24 * 3600)
             }
 
             return UsageLimit(
-                tokensUsed: opusTokensUsed,
-                tokensLimit: 100,
-                resetAt: opusResetDate
+                utilization: sonnet.utilization,
+                resetAt: sonnetResetDate
             )
         }
 
         return UsageData(
             sessionUsage: UsageLimit(
-                tokensUsed: sessionTokensUsed,
-                tokensLimit: 100,
+                utilization: fiveHour.utilization,
                 resetAt: sessionResetDate
             ),
             weeklyUsage: UsageLimit(
-                tokensUsed: weeklyTokensUsed,
-                tokensLimit: 100,
+                utilization: sevenDay.utilization,
                 resetAt: weeklyResetDate
             ),
-            opusUsage: opusLimit,
+            sonnetUsage: sonnetLimit,
             lastUpdated: Date(),
             timezone: timezone
         )

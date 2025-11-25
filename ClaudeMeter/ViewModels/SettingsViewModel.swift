@@ -23,7 +23,7 @@ final class SettingsViewModel: ObservableObject {
 
     // Display Settings
     @Published var refreshInterval: Double = 60
-    @Published var isOpusUsageShown: Bool = false
+    @Published var isSonnetUsageShown: Bool = false
 
     // Notification Settings
     @Published var hasNotificationsEnabled: Bool = true
@@ -77,7 +77,7 @@ final class SettingsViewModel: ObservableObject {
             self.warningThreshold = settings.notificationThresholds.warningThreshold
             self.criticalThreshold = settings.notificationThresholds.criticalThreshold
             self.isNotifiedOnReset = settings.notificationThresholds.isNotifiedOnReset
-            self.isOpusUsageShown = settings.isOpusUsageShown
+            self.isSonnetUsageShown = settings.isSonnetUsageShown
 
             // Check actual system notification permissions and sync with settings
             let hasSystemPermission = await notificationService.checkNotificationPermissions()
@@ -190,7 +190,7 @@ final class SettingsViewModel: ObservableObject {
                 criticalThreshold: criticalThreshold,
                 isNotifiedOnReset: isNotifiedOnReset
             )
-            settings.isOpusUsageShown = isOpusUsageShown
+            settings.isSonnetUsageShown = isSonnetUsageShown
 
             // Save to repository
             try await settingsRepository.save(settings)

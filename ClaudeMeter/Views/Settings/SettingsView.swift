@@ -135,10 +135,10 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 8)
                     VStack(alignment: .leading, spacing: 8) {
-                        Toggle("Show Opus Usage", isOn: $viewModel.isOpusUsageShown)
-                            .accessibilityLabel("Show Opus usage toggle")
+                        Toggle("Show Sonnet Usage", isOn: $viewModel.isSonnetUsageShown)
+                            .accessibilityLabel("Show Sonnet usage toggle")
 
-                        Text("Display weekly Opus usage in the menu bar popover")
+                        Text("Display weekly Sonnet usage in the menu bar popover")
                             .font(.caption)
                             .foregroundColor(.secondary)
                     }

@@ -88,8 +88,7 @@ struct UsageCardView: View {
         UsageCardView(
             title: "5-Hour Session",
             usageLimit: UsageLimit(
-                tokensUsed: 35000,
-                tokensLimit: 100000,
+                utilization: 35.0,
                 resetAt: Date().addingTimeInterval(7200)
             ),
             icon: "gauge.with.dots.needle.67percent",
@@ -99,8 +98,7 @@ struct UsageCardView: View {
         UsageCardView(
             title: "Weekly Usage",
             usageLimit: UsageLimit(
-                tokensUsed: 750000,
-                tokensLimit: 1000000,
+                utilization: 75.0,
                 resetAt: Date().addingTimeInterval(86400 * 3)
             ),
             icon: "calendar",

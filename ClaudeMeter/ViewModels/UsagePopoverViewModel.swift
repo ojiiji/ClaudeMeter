@@ -16,7 +16,7 @@ final class UsagePopoverViewModel: ObservableObject {
     @Published var usageData: UsageData?
     @Published var isRefreshing: Bool = false
     @Published var errorMessage: String?
-    @Published var isOpusUsageShown: Bool = false
+    @Published var isSonnetUsageShown: Bool = false
 
     // MARK: - Dependencies
 
@@ -50,7 +50,7 @@ final class UsagePopoverViewModel: ObservableObject {
     /// Load settings from repository
     private func loadSettings() async {
         let settings = await settingsRepository.load()
-        self.isOpusUsageShown = settings.isOpusUsageShown
+        self.isSonnetUsageShown = settings.isSonnetUsageShown
     }
 
     /// Manual refresh (clears cache and fetches fresh data)

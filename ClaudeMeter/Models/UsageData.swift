@@ -15,8 +15,8 @@ struct UsageData: Codable, Equatable, Sendable {
     /// 7-day weekly usage across all models
     let weeklyUsage: UsageLimit
 
-    /// 7-day Opus-specific usage (nil if not used)
-    let opusUsage: UsageLimit?
+    /// 7-day Sonnet-specific usage (nil if not used)
+    let sonnetUsage: UsageLimit?
 
     /// Timestamp of when this data was fetched
     let lastUpdated: Date
@@ -27,7 +27,7 @@ struct UsageData: Codable, Equatable, Sendable {
     enum CodingKeys: String, CodingKey {
         case sessionUsage = "session_usage"
         case weeklyUsage = "weekly_usage"
-        case opusUsage = "opus_usage"
+        case sonnetUsage = "sonnet_usage"
         case lastUpdated = "last_updated"
         case timezone
     }
