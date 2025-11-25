@@ -6,7 +6,7 @@ Keep track of your Claude.ai plan usage at a glance.
 
 ## Features
 
-- **Real-time usage monitoring** - Track your 5-hour session, 7-day weekly, and Opus-specific usage limits
+- **Real-time usage monitoring** - Track your 5-hour session, 7-day weekly, and Sonnet-specific usage limits
 - **Menu bar integration** - Clean, colour-coded usage indicator that lives in your macOS menu bar
 - **Smart notifications** - Configurable alerts at warning and critical thresholds (defaults: 75% and 90%)
 - **Auto-refresh** - Automatic usage updates every 1 minute, 5 minutes, or 10 minutes
@@ -23,10 +23,10 @@ The menu bar icon changes colour based on your usage levels:
   <img src="README/menubar-critical.png" width="260" alt="Menu bar - Critical threshold">
 </p>
 
-When using Opus models, an additional indicator shows your Opus-specific usage:
+When using Sonnet models, an additional indicator shows your Sonnet-specific usage:
 
 <p align="center">
-  <img src="README/menubar-opus.png" width="300" alt="Menu bar - Opus usage">
+  <img src="README/menubar-sonnet.png" width="300" alt="Menu bar - Sonnet usage">
 </p>
 
 ### Notifications
