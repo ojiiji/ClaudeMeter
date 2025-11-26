@@ -53,14 +53,10 @@ ClaudeMeter sends native macOS notifications when you reach warning or critical 
 ## Installation
 
 1. Download the latest release
-2. Move `ClaudeMeter.app` to Applications
-3. **Right-click** and select **"Open"** (required for unsigned apps)
+2. Unzip and move `ClaudeMeter.app` to Applications
+3. Double-click to open
 
-If you see "ClaudeMeter is damaged", run:
-
-```bash
-xattr -cr /Applications/ClaudeMeter.app
-```
+The app is signed and notarized by Apple, so it will open without any security warnings.
 
 ## Usage
 
@@ -133,7 +129,7 @@ This application accesses Claude's web API using browser-based authentication me
 
 - Anthropic may block, restrict, or terminate access at any time
 - Your Claude account could be affected by using unofficial API clients
-- This app is **unsigned and unnotarized** - macOS will show security warnings on first launch
+- This app is signed and notarized by Apple
 - **Use at your own risk** - the developer assumes no liability for any consequences
 
 **Data storage:**

@@ -34,7 +34,34 @@ jobs:
 
           echo "Updated version to ${{ inputs.version }} (build $BUILD_NUMBER)"
 
+      - name: Install Apple certificate
+        env:
+          APPLE_CERTIFICATE_BASE64: ${{ secrets.APPLE_CERTIFICATE_BASE64 }}
+          APPLE_CERTIFICATE_PASSWORD: ${{ secrets.APPLE_CERTIFICATE_PASSWORD }}
+        run: |
+          KEYCHAIN_PATH=$RUNNER_TEMP/app-signing.keychain-db
+          KEYCHAIN_PASSWORD=$(openssl rand -base64 32)
+
+          echo "$APPLE_CERTIFICATE_BASE64" | base64 --decode > $RUNNER_TEMP/certificate.p12
+
+          security create-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security set-keychain-settings -lut 21600 $KEYCHAIN_PATH
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+
+          security import $RUNNER_TEMP/certificate.p12 \
+            -P "$APPLE_CERTIFICATE_PASSWORD" \
+            -A -t cert -f pkcs12 \
+            -k $KEYCHAIN_PATH
+
+          security set-key-partition-list -S apple-tool:,apple: -s -k "$KEYCHAIN_PASSWORD" $KEYCHAIN_PATH
+          security list-keychain -d user -s $KEYCHAIN_PATH
+
+          rm -f $RUNNER_TEMP/certificate.p12
+          echo "KEYCHAIN_PATH=$KEYCHAIN_PATH" >> $GITHUB_ENV
+
       - name: Build app
+        env:
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
         run: |
           xcodebuild clean build \
             -project ClaudeMeter.xcodeproj \
@@ -42,78 +69,86 @@ jobs:
             -configuration Release \
             -derivedDataPath ./build \
             -arch x86_64 -arch arm64 \
-            CODE_SIGN_IDENTITY="-" \
-            CODE_SIGNING_REQUIRED=NO \
-            CODE_SIGNING_ALLOWED=NO
+            CODE_SIGN_STYLE=Manual \
+            CODE_SIGN_IDENTITY="Developer ID Application" \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" \
+            OTHER_CODE_SIGN_FLAGS="--timestamp --options runtime"
 
-      - name: Create app bundle ZIP
+      - name: Notarize app
+        env:
+          APP_STORE_CONNECT_API_KEY_BASE64: ${{ secrets.APP_STORE_CONNECT_API_KEY_BASE64 }}
+          APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_KEY_ID }}
+          APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        run: |
+          APP_PATH="build/Build/Products/Release/ClaudeMeter.app"
+
+          echo "$APP_STORE_CONNECT_API_KEY_BASE64" | base64 --decode > $RUNNER_TEMP/AuthKey.p8
+
+          /usr/bin/ditto -c -k --keepParent "$APP_PATH" "$RUNNER_TEMP/ClaudeMeter-notarize.zip"
+
+          echo "Submitting for notarization..."
+          xcrun notarytool submit "$RUNNER_TEMP/ClaudeMeter-notarize.zip" \
+            --key "$RUNNER_TEMP/AuthKey.p8" \
+            --key-id "$APP_STORE_CONNECT_KEY_ID" \
+            --issuer "$APP_STORE_CONNECT_ISSUER_ID" \
+            --wait
+
+          echo "Stapling notarization ticket..."
+          xcrun stapler staple "$APP_PATH"
+
+          echo "Verifying..."
+          spctl -a -t exec -vv "$APP_PATH"
+          xcrun stapler validate "$APP_PATH"
+
+          rm -f $RUNNER_TEMP/AuthKey.p8 $RUNNER_TEMP/ClaudeMeter-notarize.zip
+
+      - name: Create ZIP
         run: |
           cd build/Build/Products/Release
+          xattr -cr ClaudeMeter.app
+          find ClaudeMeter.app -name '._*' -delete
           zip -r ../../../../ClaudeMeter-${{ inputs.version }}.zip ClaudeMeter.app
-          cd ../../../..
-          echo "Created ClaudeMeter-${{ inputs.version }}.zip"
-
-      - name: Generate release notes
-        id: release_notes
-        run: |
-          cat > release_notes.md << 'EOF'
-          ## ClaudeMeter v${{ inputs.version }}
-
-          ### Installation
-
-          1. Download `ClaudeMeter-${{ inputs.version }}.zip`
-          2. Unzip the file
-          3. Move `ClaudeMeter.app` to your Applications folder
-          4. Right-click and select "Open" the first time (to bypass Gatekeeper)
-
-          If you see "ClaudeMeter is damaged and can't be opened", run:
-          ```bash
-          xattr -cr /Applications/ClaudeMeter.app
-          ```
-
-          ### Features
-
-          - **Real-time usage monitoring** - Track your 5-hour session, 7-day weekly, and Sonnet-specific usage limits
-          - **Menu bar integration** - Clean, color-coded usage indicator that lives in your macOS menu bar
-          - **Smart notifications** - Configurable alerts at warning and critical thresholds (defaults: 75% and 90%)
-          - **Auto-refresh** - Automatic usage updates every 1-10 minutes (customizable)
-
-          ### Requirements
-
-          - macOS 14.0 (Sonoma) or later
-          - Active Claude.ai account with session key
-
-          ### Disclaimer
-
-          ⚠️ **This is an unofficial tool** and is not affiliated with Anthropic PBC. This app may violate Anthropic's Terms of Service. Use at your own risk.
-
-          - **Unsigned build** - Not notarized by Apple (requires right-click → Open or `xattr -cr`)
-          - **Unofficial API usage** - May be blocked or restricted at any time
-          - **Session keys stored securely** - macOS Keychain (device-local only)
-          - **No telemetry** - No data sent to third parties
-
-          To find your Claude session key, check your browser cookies at claude.ai for the `sessionKey` value (starts with `sk-ant-`).
-
-          By downloading and using this software, you accept full responsibility and acknowledge these risks.
-          EOF
-
-          echo "Generated release notes"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ inputs.version }}
           name: ClaudeMeter v${{ inputs.version }}
-          body_path: release_notes.md
+          body: |
+            ## ClaudeMeter v${{ inputs.version }}
+
+            ### Installation
+
+            1. Download `ClaudeMeter-${{ inputs.version }}.zip`
+            2. Unzip and move `ClaudeMeter.app` to Applications
+            3. Double-click to open
+
+            This release is **signed and notarized** by Apple.
+
+            ### Features
+
+            - **Real-time usage monitoring** - Track your 5-hour session, 7-day weekly, and Sonnet-specific usage limits
+            - **Menu bar integration** - Clean, color-coded usage indicator that lives in your macOS menu bar
+            - **Smart notifications** - Configurable alerts at warning and critical thresholds (defaults: 75% and 90%)
+            - **Auto-refresh** - Automatic usage updates every 1-10 minutes (customizable)
+
+            ### Requirements
+
+            - macOS 14.0 (Sonoma) or later
+            - Active Claude.ai account with session key
+
+            ### Disclaimer
+
+            ⚠️ **Unofficial tool** - Not affiliated with Anthropic. Use at your own risk.
           files: ClaudeMeter-${{ inputs.version }}.zip
           draft: false
           prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ClaudeMeter-${{ inputs.version }}
-          path: ClaudeMeter-${{ inputs.version }}.zip
-          retention-days: 90
+      - name: Cleanup keychain
+        if: always()
+        run: |
+          if [[ -f "${KEYCHAIN_PATH:-}" ]]; then
+            security delete-keychain $KEYCHAIN_PATH || true
+          fi

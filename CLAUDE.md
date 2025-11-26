@@ -22,16 +22,13 @@ xcodebuild clean build \
   -scheme ClaudeMeter \
   -configuration Debug
 
-# Build release (unsigned)
+# Build release (local development - unsigned)
 xcodebuild clean build \
   -project ClaudeMeter.xcodeproj \
   -scheme ClaudeMeter \
   -configuration Release \
   -derivedDataPath ./build \
-  -arch x86_64 -arch arm64 \
-  CODE_SIGN_IDENTITY="-" \
-  CODE_SIGNING_REQUIRED=NO \
-  CODE_SIGNING_ALLOWED=NO
+  -arch x86_64 -arch arm64
 ```
 
 **Run:** Press ⌘R in Xcode to build and run. The app appears in the menu bar (not the Dock).
@@ -169,12 +166,14 @@ Releases are created via GitHub Actions workflow (`.github/workflows/release.yml
 The workflow:
 
 1. Updates MARKETING_VERSION and CURRENT_PROJECT_VERSION in project.pbxproj
-2. Builds unsigned universal binary (x86_64 + arm64)
-3. Creates ZIP archive
-4. Generates release notes
-5. Creates GitHub release with artifact
+2. Installs Apple Developer ID certificate from secrets
+3. Builds universal binary (x86_64 + arm64) with code signing
+4. Submits to Apple for notarization and staples the ticket
+5. Creates ZIP archive
+6. Generates release notes
+7. Creates GitHub release with artifact
 
-**Note:** Builds are unsigned and require users to right-click → Open or run `xattr -cr` to bypass Gatekeeper.
+**Note:** Release builds are signed with a Developer ID certificate and notarized by Apple. Users can install and run the app without Gatekeeper warnings.
 
 ## Common Development Patterns
 
